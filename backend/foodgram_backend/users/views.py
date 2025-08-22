@@ -7,10 +7,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from foodgram_backend.pagination import CustomPagination
-
 from .models import Follow
 from .serializers import SetAvatarSerializer, UserWithRecipesSerializer
+
+from foodgram_backend.pagination import CustomPagination
 
 User = get_user_model()
 
@@ -74,7 +74,7 @@ class UserSubscribeView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        follow = Follow.objects.create(user=user, author=author)
+        Follow.objects.create(user=user, author=author)
         serializer = UserWithRecipesSerializer(
             author, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)

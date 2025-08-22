@@ -4,7 +4,6 @@ import string
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
-
 from foodgram_backend.constants import (INGREDIENT_MAX_LENGTH,
                                         MEASUREMENT_UNIT_MAX_LENGTH,
                                         RECIPE_MAX_LENGTH, TAG_MAX_LENGTH)

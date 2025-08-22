@@ -6,14 +6,14 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from foodgram_backend.pagination import CustomPagination
-
 from .filters import RecipeFilter
 from .models import Favorite, Ingredient, Recipe, ShoppingCart, ShortLink, Tag
 from .serializers import (IngredientSerializer, RecipeGetShortLinkSerializer,
                           RecipeListSerializer, RecipeShortSerializer,
                           RecipeWriteSerializer, TagSerializer)
 from .utils import generate_shopping_list
+
+from foodgram_backend.pagination import CustomPagination
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
