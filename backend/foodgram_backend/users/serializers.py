@@ -1,8 +1,10 @@
-from rest_framework import serializers
-from django.contrib.auth import get_user_model
-from django.core.files.base import ContentFile
 import base64
 import uuid
+
+from django.contrib.auth import get_user_model
+from django.core.files.base import ContentFile
+from rest_framework import serializers
+
 from .models import Follow
 
 User = get_user_model()

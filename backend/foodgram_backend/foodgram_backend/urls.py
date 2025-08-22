@@ -1,11 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
-from djoser import views as djoser_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
+from djoser import views as djoser_views
 from rest_framework.routers import SimpleRouter
 from users.views import UserViewSet
-
 
 router = SimpleRouter()
 router.register(r'users', UserViewSet, basename='user')

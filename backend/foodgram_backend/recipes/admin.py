@@ -1,10 +1,10 @@
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.db.models import Count
-from .models import (
-    Tag, Ingredient, Recipe, IngredientInRecipe,
-    Favorite, ShoppingCart, ShortLink)
+
+from .models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
+                     ShoppingCart, ShortLink, Tag)
 
 
 @admin.register(Tag)

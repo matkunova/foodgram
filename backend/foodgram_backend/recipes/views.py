@@ -1,23 +1,19 @@
-from rest_framework import viewsets, status, generics
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 
-from .models import Recipe, Favorite, ShoppingCart, ShortLink, Ingredient, Tag
-from .serializers import (
-    RecipeListSerializer,
-    RecipeWriteSerializer,
-    RecipeShortSerializer,
-    RecipeGetShortLinkSerializer,
-    IngredientSerializer,
-    TagSerializer,
-)
-from .filters import RecipeFilter
-from .utils import generate_shopping_list
 from foodgram_backend.pagination import CustomPagination
+
+from .filters import RecipeFilter
+from .models import Favorite, Ingredient, Recipe, ShoppingCart, ShortLink, Tag
+from .serializers import (IngredientSerializer, RecipeGetShortLinkSerializer,
+                          RecipeListSerializer, RecipeShortSerializer,
+                          RecipeWriteSerializer, TagSerializer)
+from .utils import generate_shopping_list
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -53,7 +49,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("Недостаточно прав для удаления.")
         instance.delete()
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'],
+            permission_classes=[IsAuthenticated])
     def favorite(self, request, pk=None):
         if not request.user.is_authenticated:
             return Response(
@@ -87,7 +84,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         favorite.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'],
+            permission_classes=[IsAuthenticated])
     def shopping_cart(self, request, pk=None):
         if not request.user.is_authenticated:
             return Response(status=status.HTTP_401_UNAUTHORIZED)

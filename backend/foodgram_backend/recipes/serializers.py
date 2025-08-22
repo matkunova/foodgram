@@ -1,9 +1,10 @@
-from rest_framework import serializers
-from django.core.files.base import ContentFile
 import base64
 
-from .models import Tag, Ingredient, IngredientInRecipe, Recipe
+from django.core.files.base import ContentFile
+from rest_framework import serializers
 from users.serializers import UserSerializer
+
+from .models import Ingredient, IngredientInRecipe, Recipe, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -150,7 +151,9 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         for item in value:
             if not isinstance(item, int) or item <= 0:
                 raise serializers.ValidationError(
-                    f'Некорректный id тега: {item}. Ожидается положительное число.')
+                    (f'Некорректный id тега: {item}. '
+                     f'Ожидается положительное число.')
+                )
             tag_ids.append(item)
 
         if len(tag_ids) != len(set(tag_ids)):

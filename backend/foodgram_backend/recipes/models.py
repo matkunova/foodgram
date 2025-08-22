@@ -1,13 +1,13 @@
-from django.db import models
-from django.conf import settings
-from django.core.validators import RegexValidator
 import random
 import string
 
-from foodgram_backend.constants import (
-    TAG_MAX_LENGTH, INGREDIENT_MAX_LENGTH,
-    MEASUREMENT_UNIT_MAX_LENGTH, RECIPE_MAX_LENGTH
-)
+from django.conf import settings
+from django.core.validators import RegexValidator
+from django.db import models
+
+from foodgram_backend.constants import (INGREDIENT_MAX_LENGTH,
+                                        MEASUREMENT_UNIT_MAX_LENGTH,
+                                        RECIPE_MAX_LENGTH, TAG_MAX_LENGTH)
 
 
 def generate_short_code():
@@ -84,7 +84,8 @@ class IngredientInRecipe(models.Model):
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE, related_name='recipe_ingredients')
     ingredient = models.ForeignKey(
-        Ingredient, on_delete=models.CASCADE, related_name='ingredient_recipes')
+        Ingredient, on_delete=models.CASCADE,
+        related_name='ingredient_recipes')
     amount = models.PositiveIntegerField('Количество')
 
     class Meta:
@@ -104,7 +105,8 @@ class IngredientInRecipe(models.Model):
 
 class Favorite(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, related_name='favorites')
+                             on_delete=models.CASCADE,
+                             related_name='favorites')
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE, related_name='favorited_by')
     added = models.DateTimeField(auto_now_add=True)

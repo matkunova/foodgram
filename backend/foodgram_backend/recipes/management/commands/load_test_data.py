@@ -1,13 +1,13 @@
-from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
-from django.core.files.images import ImageFile
-from django.conf import settings
-
-from recipes.models import Tag, Ingredient, Recipe, IngredientInRecipe, Favorite, ShoppingCart
-from users.models import Follow
+import base64
 import os
 
-import base64
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.files.images import ImageFile
+from django.core.management.base import BaseCommand
+from recipes.models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
+                            ShoppingCart, Tag)
+from users.models import Follow
 
 User = get_user_model()
 
