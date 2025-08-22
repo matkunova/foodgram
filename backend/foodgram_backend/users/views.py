@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from djoser.views import UserViewSet as DjoserUserViewSet
+from foodgram_backend.pagination import CustomPagination
 from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from foodgram_backend.pagination import CustomPagination
 from .models import Follow
 from .serializers import SetAvatarSerializer, UserWithRecipesSerializer
 
