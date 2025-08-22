@@ -27,6 +27,16 @@ AUTH_USER_MODEL = 'users.User'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://foodgrampracticum.ddns.net',
+]
+
+SESSION_COOKIE_SECURE = True      # чтобы куки сессии передавались только по HTTPS
+CSRF_COOKIE_SECURE = True         # чтобы CSRF куки передавались только по HTTPS
+SECURE_SSL_REDIRECT = True        # чтобы HTTP запросы перенаправлялись на HTTPS
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # чтобы Django знал, что запрос шёл через HTTPS прокси
+
 ALLOWED_HOSTS = ["foodgrampracticum.ddns.net", "localhost",
                  "127.0.0.1", "89.169.178.88"]
 
