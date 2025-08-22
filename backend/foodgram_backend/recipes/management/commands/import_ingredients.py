@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 )
                 continue
 
-            ingredient = Ingredient.objects.create(
+            Ingredient.objects.create(
                 name=name,
                 measurement_unit=measurement_unit
             )

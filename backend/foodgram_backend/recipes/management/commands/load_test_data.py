@@ -1,4 +1,3 @@
-import base64
 import os
 
 from django.conf import settings
