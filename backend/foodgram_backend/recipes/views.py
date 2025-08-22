@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from foodgram_backend.pagination import CustomPagination
 from rest_framework import generics, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
@@ -12,8 +13,6 @@ from .serializers import (IngredientSerializer, RecipeGetShortLinkSerializer,
                           RecipeListSerializer, RecipeShortSerializer,
                           RecipeWriteSerializer, TagSerializer)
 from .utils import generate_shopping_list
-
-from foodgram_backend.pagination import CustomPagination
 
 
 class RecipeViewSet(viewsets.ModelViewSet):

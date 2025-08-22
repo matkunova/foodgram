@@ -7,10 +7,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from foodgram_backend.pagination import CustomPagination
 from .models import Follow
 from .serializers import SetAvatarSerializer, UserWithRecipesSerializer
-
-from foodgram_backend.pagination import CustomPagination
 
 User = get_user_model()
 
