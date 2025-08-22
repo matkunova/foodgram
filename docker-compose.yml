@@ -1,0 +1,50 @@
+volumes:
+  pg_data:
+  static:
+  media:
+  docs:
+
+services:
+  db:
+    image: postgres:14
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  backend:
+    build: ./backend/foodgram_backend/
+    env_file: .env
+    volumes:
+      - static:/backend_static
+      - media:/app/media
+      - docs:/app/docs
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "python manage.py migrate &&
+      python manage.py import_ingredients &&
+      python manage.py collectstatic --noinput &&
+      cp -r /app/collected_static/. /backend_static/static/ &&
+      gunicorn --bind 0.0.0.0:8000 foodgram_backend.wsgi"
+  frontend:
+    env_file: .env
+    build: ./frontend/
+    command: cp -r /app/build/. /static/
+    volumes:
+      - static:/static
+  gateway:
+    build: ./infra/
+    env_file: .env
+    ports:
+      - 8000:80
+    volumes:
+      - static:/static
+      - media:/app/media
+      - docs:/usr/share/nginx/html/api/docs
+    depends_on:
+      - backend
