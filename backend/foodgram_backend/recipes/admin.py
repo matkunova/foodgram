@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.db.models import Count
+from foodgram_backend.constants import MAX_TIME, MIN_TIME
 
 from .models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
                      ShoppingCart, ShortLink, Tag)
@@ -28,9 +29,14 @@ class RecipeAdminForm(forms.ModelForm):
 
     def clean_cooking_time(self):
         cooking_time = self.cleaned_data.get('cooking_time')
-        if cooking_time is not None and cooking_time < 1:
+        if cooking_time is not None and cooking_time < MIN_TIME:
             raise ValidationError(
-                'Время приготовления должно быть не меньше 1 минуты.')
+                f'Время приготовления должно быть не меньше {MIN_TIME} '
+                f'минуты.')
+        if cooking_time is not None and cooking_time > MAX_TIME:
+            raise ValidationError(
+                f'Время приготовления должно быть не меньше {MAX_TIME} '
+                f'минуты.')
         return cooking_time
 
 
