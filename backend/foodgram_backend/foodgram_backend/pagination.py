@@ -1,7 +1,6 @@
+from foodgram_backend.constants import MAX_PAGE_SIZE, PAGE_SIZE
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-
-from foodgram_backend.constants import PAGE_SIZE, MAX_PAGE_SIZE
 
 
 class CustomPagination(PageNumberPagination):
