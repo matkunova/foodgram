@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from djoser import views as djoser_views
 from rest_framework.routers import SimpleRouter
+
 from recipes.views import redirect_to_recipe
 from users.views import UserViewSet
 
