@@ -2,11 +2,14 @@ import random
 import string
 
 from django.conf import settings
-from django.core.validators import RegexValidator
+from django.core.validators import (
+    RegexValidator, MinValueValidator, MaxValueValidator)
 from django.db import models
 from foodgram_backend.constants import (INGREDIENT_MAX_LENGTH,
                                         MEASUREMENT_UNIT_MAX_LENGTH,
-                                        RECIPE_MAX_LENGTH, TAG_MAX_LENGTH)
+                                        RECIPE_MAX_LENGTH, TAG_MAX_LENGTH,
+                                        MIN_INGREDIENT_AMOUNT,
+                                        MAX_INGREDIENT_AMOUNT)
 
 
 def generate_short_code():
@@ -85,7 +88,15 @@ class IngredientInRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient, on_delete=models.CASCADE,
         related_name='ingredient_recipes')
-    amount = models.PositiveIntegerField('Количество')
+    amount = models.PositiveSmallIntegerField(
+        validators=[
+            MinValueValidator(MIN_INGREDIENT_AMOUNT,
+                              'Количество ингредиента не может быть меньше 1'),
+            MaxValueValidator(
+                MAX_INGREDIENT_AMOUNT,
+                'Количество ингредиента не может быть больше 10000')],
+        verbose_name='Количество', help_text='Укажите количество ингредиента'
+    )
 
     class Meta:
         verbose_name = 'Ингредиент в рецепте'

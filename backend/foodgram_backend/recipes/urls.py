@@ -28,6 +28,8 @@ urlpatterns = [
     path('recipes/<int:pk>/get-link/',
          views.RecipeViewSet.as_view({'get': 'get_link'}),
          name='recipe-get-link'),
+    path('s/<str:short_code>/', views.redirect_to_recipe,
+         name='redirect-to-recipe'),
     path('recipes/download_shopping_cart/',
          views.DownloadShoppingCartView.as_view(),
          name='download-shopping-cart'),

@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import get_object_or_404, redirect
 from foodgram_backend.pagination import CustomPagination
 from rest_framework import generics, status, viewsets
 from rest_framework.decorators import action
@@ -122,6 +122,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         serializer = RecipeGetShortLinkSerializer(
             short_link, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+def redirect_to_recipe(request, short_code):
+    try:
+        short_link = ShortLink.objects.select_related('recipe').get(
+            short_code=short_code)
+        return redirect(f'/api/recipes/{short_link.recipe.id}/')
+    except ShortLink.DoesNotExist:
+        return HttpResponseNotFound('Ссылка не найдена')
 
 
 class DownloadShoppingCartView(generics.GenericAPIView):

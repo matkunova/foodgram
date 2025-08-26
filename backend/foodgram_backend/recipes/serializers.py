@@ -1,6 +1,8 @@
 import base64
 
 from django.core.files.base import ContentFile
+from foodgram_backend.constants import (MIN_INGREDIENT_AMOUNT,
+                                        MAX_INGREDIENT_AMOUNT)
 from rest_framework import serializers
 from users.serializers import UserSerializer
 
@@ -123,9 +125,14 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             if 'amount' not in item:
                 raise serializers.ValidationError(
                     'У ингредиента должно быть поле "amount".')
-            if item['amount'] < 1:
+            if item['amount'] < MIN_INGREDIENT_AMOUNT:
                 raise serializers.ValidationError(
-                    'Количество должно быть не меньше 1.')
+                    f'Количество должно быть не меньше '
+                    f'{MIN_INGREDIENT_AMOUNT}.')
+            if item['amount'] > MAX_INGREDIENT_AMOUNT:
+                raise serializers.ValidationError(
+                    f'Количество должно быть не больше '
+                    f'{MAX_INGREDIENT_AMOUNT}.')
             ingredient_ids.append(item['id'])
 
         if len(ingredient_ids) != len(set(ingredient_ids)):
