@@ -39,7 +39,7 @@ SESSION_COOKIE_SECURE = True      # чтобы куки сессии перед�
 CSRF_COOKIE_SECURE = True         # чтобы CSRF куки передавались только по HTTPS
 SECURE_SSL_REDIRECT = True        # чтобы HTTP запросы перенаправлялись на HTTPS
 
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # чтобы Django знал, что запрос шёл через HTTPS прокси
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # чтобы Django знал, что запрос шёл через HTTPS прокси
 
 ALLOWED_HOSTS = ["foodgrampracticum.ddns.net", "localhost",
                  "127.0.0.1", "89.169.178.88"]
