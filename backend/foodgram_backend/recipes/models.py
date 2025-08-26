@@ -2,14 +2,14 @@ import random
 import string
 
 from django.conf import settings
-from django.core.validators import (
-    RegexValidator, MinValueValidator, MaxValueValidator)
+from django.core.validators import (MaxValueValidator, MinValueValidator,
+                                    RegexValidator)
 from django.db import models
 from foodgram_backend.constants import (INGREDIENT_MAX_LENGTH,
+                                        MAX_INGREDIENT_AMOUNT,
                                         MEASUREMENT_UNIT_MAX_LENGTH,
-                                        RECIPE_MAX_LENGTH, TAG_MAX_LENGTH,
                                         MIN_INGREDIENT_AMOUNT,
-                                        MAX_INGREDIENT_AMOUNT)
+                                        RECIPE_MAX_LENGTH, TAG_MAX_LENGTH)
 
 
 def generate_short_code():

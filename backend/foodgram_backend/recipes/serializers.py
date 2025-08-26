@@ -1,8 +1,8 @@
 import base64
 
 from django.core.files.base import ContentFile
-from foodgram_backend.constants import (MIN_INGREDIENT_AMOUNT,
-                                        MAX_INGREDIENT_AMOUNT)
+from foodgram_backend.constants import (MAX_INGREDIENT_AMOUNT,
+                                        MIN_INGREDIENT_AMOUNT)
 from rest_framework import serializers
 from users.serializers import UserSerializer
 
