@@ -35,7 +35,7 @@ class RecipeAdminForm(forms.ModelForm):
                 f'минуты.')
         if cooking_time is not None and cooking_time > MAX_TIME:
             raise ValidationError(
-                f'Время приготовления должно быть не меньше {MAX_TIME} '
+                f'Время приготовления должно быть не больше {MAX_TIME} '
                 f'минут.')
         return cooking_time
 

@@ -128,7 +128,7 @@ def redirect_to_recipe(request, short_code):
     try:
         short_link = ShortLink.objects.select_related('recipe').get(
             short_code=short_code)
-        return redirect(f'/api/recipes/{short_link.recipe.id}/')
+        return redirect(f'/recipes/{short_link.recipe.id}/')
     except ShortLink.DoesNotExist:
         return HttpResponseNotFound('Ссылка не найдена')
 

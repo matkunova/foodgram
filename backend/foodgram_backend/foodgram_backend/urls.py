@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from djoser import views as djoser_views
 from rest_framework.routers import SimpleRouter
+from recipes.views import redirect_to_recipe
 from users.views import UserViewSet
 
 router = SimpleRouter()
@@ -22,6 +23,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     path('api/', include('recipes.urls')),
+
+    path('s/<str:short_code>/', redirect_to_recipe,
+         name='redirect-to-recipe'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

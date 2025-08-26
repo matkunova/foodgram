@@ -70,7 +70,7 @@ class Recipe(models.Model):
     )
     tags = models.ManyToManyField(
         Tag, related_name='recipes', verbose_name='Теги')
-    cooking_time = models.PositiveIntegerField('Время приготовления (мин)')
+    cooking_time = models.IntegerField('Время приготовления (мин)')
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -88,7 +88,7 @@ class IngredientInRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient, on_delete=models.CASCADE,
         related_name='ingredient_recipes')
-    amount = models.PositiveSmallIntegerField(
+    amount = models.IntegerField(
         validators=[
             MinValueValidator(MIN_INGREDIENT_AMOUNT,
                               'Количество ингредиента не может быть меньше 1'),
